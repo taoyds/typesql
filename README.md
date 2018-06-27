@@ -11,7 +11,7 @@ Source code accompanying our NAACL 2018 paper:[TypeSQL: Knowledge-based Type-Awa
 #### Download Data and Embeddings
 
 1. Download the zip data file at the [Google Drive](https://drive.google.com/file/d/1CGIRCjwf2bgmWl3UyjY1yJpP4nU---Q0/view?usp=sharing), and put it in the root dir.
-2. Download the pretrained [Glove](https://nlp.stanford.edu/data/wordvecs/glove.42B.300d.zip) and the [paraphrase embedding](https://drive.google.com/file/d/1rbF3daJjCsa1-fu2GANeJd2FBXos1ugD/view) `para-nmt-50m/data/paragram_sl999_czeng.txt`
+2. Download the pretrained [Glove](https://nlp.stanford.edu/data/wordvecs/glove.42B.300d.zip) and the [paraphrase embedding](https://drive.google.com/file/d/1rbF3daJjCsa1-fu2GANeJd2FBXos1ugD/view) `para-nmt-50m/data/paragram_sl999_czeng.txt`. Put the unziped glove and para-nmt-50m folders in the root dir.
 
 #### Train Models
 
@@ -36,6 +36,20 @@ python test.py --sd saved_model_kg
 2. Test Model with knowledge graph types:
 ```
 python test.py --sd saved_model_con --db_content 1
+```
+
+#### Get Data Types
+
+1. Get a Google Knowledge Graph Search API Key by following the [link](https://developers.google.com/knowledge-graph/)
+2. Search knowledge graph to get entities:
+```
+python get_kg_entities.py [Google freebase API Key] [input json file] [output json file]
+```
+3. Use detected knowledge graph entites and DB content to group questions and create type attributes in data files:
+```
+python data_process_test.py --tok [output json file generated at step 2] --table TABLE_FILE --out OUTPUT_FILE [--data_dir DATA_DIRECTORY] [--out_dir OUTPUT_DIRECTORY]
+
+python data_process_train_dev.py --tok [output json file generated at step 2] --table TABLE_FILE --out OUTPUT_FILE [--data_dir DATA_DIRECTORY] [--out_dir OUTPUT_DIRECTORY]
 ```
 
 #### Acknowledgement

@@ -38,10 +38,10 @@ if __name__ == '__main__':
     #word_emb = load_word_emb('glove/glove.%dB.%dd.txt'%(B_word,N_word), \
     #        load_used=args.train_emb, use_small=USE_SMALL)
     if args.db_content == 0:
-        word_emb = load_word_and_type_emb('glove/glove.42B.300d.txt', "/data/projects/paraphrase/generation/para-nmt-50m/data/paragram_sl999_czeng.txt",\
+        word_emb = load_word_and_type_emb('glove/glove.42B.300d.txt', "para-nmt-50m/data/paragram_sl999_czeng.txt",\
                                          val_sql_data, val_table_data, args.db_content, is_list=True, use_htype=False)
     else:
-        word_emb = load_concat_wemb('glove/glove.42B.300d.txt', "/data/projects/paraphrase/generation/para-nmt-50m/data/paragram_sl999_czeng.txt")
+        word_emb = load_concat_wemb('glove/glove.42B.300d.txt', "para-nmt-50m/data/paragram_sl999_czeng.txt")
 
     model = SQLNet(word_emb, N_word=N_word, gpu=GPU, trainable_emb = args.train_emb, db_content=args.db_content)
 

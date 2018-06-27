@@ -10,7 +10,7 @@ Source code accompanying our NAACL 2018 paper:[TypeSQL: Knowledge-based Type-Awa
 
 #### Download Data and Embeddings
 
-1. Download the zip data file at the [Google Drive](), and put it in the root dir.
+1. Download the zip data file at the [Google Drive](https://drive.google.com/file/d/1CGIRCjwf2bgmWl3UyjY1yJpP4nU---Q0/view?usp=sharing), and put it in the root dir.
 2. Download the pretrained [Glove](https://nlp.stanford.edu/data/wordvecs/glove.42B.300d.zip) and the [paraphrase embedding](https://drive.google.com/file/d/1rbF3daJjCsa1-fu2GANeJd2FBXos1ugD/view) `para-nmt-50m/data/paragram_sl999_czeng.txt`
 
 #### Train Models

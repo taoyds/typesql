@@ -7,6 +7,7 @@ Source code accompanying our NAACL 2018 paper:[TypeSQL: Knowledge-based Type-Awa
 
 1. The code uses Python 2.7 and [Pytorch 0.2.0](https://pytorch.org/previous-versions/) GPU.
 2. Install Python dependency: `pip install -r requirements.txt`
+3. Install Pytorch 0.2.0: `conda install pytorch=0.2.0 cuda91 -c pytorch`. Replace cuda91 to whichever cuda version you have.
 
 #### Download Data and Embeddings
 

@@ -217,7 +217,7 @@ def load_para_wemb(file_name):
     for (n,line) in enumerate(lines):
         info = line.strip().split(' ')
         if info[0].lower() not in ret:
-            ret[info[0]] = np.array(map(lambda x:float(x), info[1:]))
+            ret[info[0].lower()] = np.array(map(lambda x:float(x), info[1:]))
 
     return ret
 

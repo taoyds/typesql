@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 import numpy as np
-from net_utils import run_lstm, col_name_encode
+from .net_utils import run_lstm, col_name_encode
 
 class CondOpStrPredictor(nn.Module):
     def __init__(self, N_word, N_h, N_depth, max_col_num, max_tok_num, gpu, db_content):
@@ -15,15 +15,15 @@ class CondOpStrPredictor(nn.Module):
         self.gpu = gpu
 
         if db_content == 0:
-            in_size = N_word+N_word/2
+            in_size = N_word+N_word//2
         else:
             in_size = N_word+N_word
-        self.cond_opstr_lstm = nn.LSTM(input_size=in_size, hidden_size=N_h/2,
+        self.cond_opstr_lstm = nn.LSTM(input_size=in_size, hidden_size=N_h//2,
                 num_layers=N_depth, batch_first=True,
                 dropout=0.3, bidirectional=True)
         self.cond_op_att = nn.Linear(N_h, N_h)
         self.cond_op_out_K = nn.Linear(N_h, N_h)
-        self.cond_name_enc = nn.LSTM(input_size=N_word, hidden_size=N_h/2,
+        self.cond_name_enc = nn.LSTM(input_size=N_word, hidden_size=N_h//2,
                 num_layers=N_depth, batch_first=True,
                 dropout=0.3, bidirectional=True)
         self.cond_op_out_col = nn.Linear(N_h, N_h)
@@ -39,11 +39,11 @@ class CondOpStrPredictor(nn.Module):
         self.cond_str_out_col = nn.Linear(N_h, N_h)
         self.cond_str_out = nn.Sequential(nn.ReLU(), nn.Linear(N_h, 1))
         if db_content == 0:
-            self.cond_str_x_type = nn.Linear(N_word/2, N_h)
+            self.cond_str_x_type = nn.Linear(N_word//2, N_h)
         else:
             self.cond_str_x_type = nn.Linear(N_word, N_h)
 
-        self.softmax = nn.Softmax() #dim=1
+        self.softmax = nn.Softmax(dim=1)
 
 
     def gen_gt_batch(self, split_tok_seq):

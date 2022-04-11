@@ -3,13 +3,10 @@
 Source code accompanying our NAACL 2018 paper:[TypeSQL: Knowledge-based Type-Aware Neural Text-to-SQL Generation
 ](https://arxiv.org/abs/1804.09769)
 
-:+1: `03/20/2022`: **We open-sourced a simple but SOTA model (just T5) for the task! Please check out our code in the [UnifiedSKG repo](https://github.com/hkunlp/unifiedskg)!!**
-
 #### Environment Setup
 
-1. The code uses Python 2.7 and [Pytorch 0.2.0](https://pytorch.org/previous-versions/) GPU.
-2. Install Python dependency: `pip install -r requirements.txt`
-3. Install Pytorch 0.2.0: `conda install pytorch=0.2.0 cuda91 -c pytorch`. Replace cuda91 to whichever cuda version you have.
+1. The code uses Python 3.7 and Pytorch 1.11.0 GPU.
+3. Install dependencies: `conda env create -f environment.yml`
 
 #### Download Data and Embeddings
 

@@ -197,7 +197,7 @@ def get_header(tokens, idx, num_toks, header_tok, header_type):
     """
     list to header, return end idx, header_class
     """
-    for endIdx in reversed(range(idx+1, num_toks+1)):
+    for endIdx in reversed(list(range(idx+1, num_toks+1))):
         sub_toks = tokens[idx: endIdx]
         if sub_toks in header_tok:
             cls = header_type[header_tok.index(sub_toks)]
@@ -210,7 +210,7 @@ def get_kg(tokens, idx, num_toks, kg_tok, kg_type):
     """
     list to header, return end idx, kg_class
     """
-    for endIdx in reversed(range(idx+1, num_toks+1)):
+    for endIdx in reversed(list(range(idx+1, num_toks+1))):
         sub_toks = tokens[idx: endIdx]
         if sub_toks in kg_tok:
             cls = kg_type[kg_tok.index(sub_toks)]
@@ -339,7 +339,7 @@ def group_words(entry, tables):
 
 
 def get_header_col(tokens, idx, num_toks, header_tok):
-    for endIdx in reversed(range(idx+1, num_toks+1)):
+    for endIdx in reversed(list(range(idx+1, num_toks+1))):
         sub_toks = tokens[idx: endIdx]
         if sub_toks in header_tok:
             return endIdx, sub_toks
@@ -347,7 +347,7 @@ def get_header_col(tokens, idx, num_toks, header_tok):
 
 def get_con_col(tokens, token_space, idx, num_toks, header_tok, rows, cols):
     find = []
-    for endIdx in reversed(range(idx+1, num_toks+1)):
+    for endIdx in reversed(list(range(idx+1, num_toks+1))):
         sub_toks = tokens[idx: endIdx]
         tok_space = token_space[idx: endIdx]
         cont = ""
@@ -445,7 +445,7 @@ def add_question_tok_kgcol(entry):
     tok_kgcol = list()
     while idx < num_toks:
         e = list()
-        for endIdx in reversed(range(idx+1, num_toks+1)):
+        for endIdx in reversed(list(range(idx+1, num_toks+1))):
             sub_toks = toks[idx: endIdx]
             if sub_toks in kg_entities:
                 e = sub_toks
@@ -475,7 +475,7 @@ def load_and_process_data(file_path, table_path, out_path):
         for line in f:
             table = json.loads(line.strip())
             tables[table[Keys.TABLE_ID]] = table
-    print len(data)
+    print(len(data))
     with open(out_path, 'w') as f:
         for idx, entry in enumerate(data):
             # change from old keys to new keys
@@ -510,9 +510,9 @@ def load_and_process_data(file_path, table_path, out_path):
                 try:
                     res += [item[Keys.META_CLS] + extra]
                 except:
-                    print item
-                    print entry
-                    print '------------------------------------'
+                    print(item)
+                    print(entry)
+                    print('------------------------------------')
             entry[Keys.QUESTION_TYPE_KGCOL_LIST] = res
             
             # add question_type_org_kgcol
@@ -522,7 +522,7 @@ def load_and_process_data(file_path, table_path, out_path):
             entry[Keys.QUESTION_TYPE_ORG_KGCOL] = res
             del entry[Keys.META]
             if (idx + 1) % 100 == 0:
-                print idx + 1
+                print(idx + 1)
             entry = group_words_col(entry, tables)
             f.write(json.dumps(entry) + "\n")
 

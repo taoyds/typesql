@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import torch
 from typesql.utils import *
 import numpy as np
@@ -96,7 +96,7 @@ service_url = 'https://kgsearch.googleapis.com/v1/entities:search'
 
 def load_data(sql_path):
     sql_data = []
-    print "Loading data from %s"%sql_path
+    print("Loading data from %s"%sql_path)
     with open(sql_path) as inf:
         for idx, line in enumerate(inf):
             sql = json.loads(line.strip())
@@ -116,8 +116,8 @@ def query_kg(query):
     }
     if query not in VISITED:
         try:
-            url = service_url + '?' + urllib.urlencode(params)
-            response = json.loads(urllib.urlopen(url).read())
+            url = service_url + '?' + urllib.parse.urlencode(params)
+            response = json.loads(urllib.request.urlopen(url).read())
             element = response['itemListElement'][0]
             res = element['result']['name'].lower()
             #ent_type = [e.lower() for e in element['result']['@type']]
@@ -125,7 +125,7 @@ def query_kg(query):
                 ent_type = [e.lower() for e in element['result']['@type']]
                 #desc = element['description']
             except:
-                print "can not get ent_type!"
+                print("can not get ent_type!")
                 ent_type = []
                 #desc = ""
 
@@ -190,19 +190,19 @@ for sql in sql_data:
     sql["kg_entities"] = ents_kg
     if len(ents_kg) != 0:
         try:
-            print "sentence is: ", sql["question"]
-            print "kg_entities is: ", sql["kg_entities"]
+            print("sentence is: ", sql["question"])
+            print("kg_entities is: ", sql["kg_entities"])
         except:
             pass
     sql_data_kg.append(sql)
     count += 1
 
-print "\nloaded data exmple count: ", count
+print("\nloaded data exmple count: ", count)
 
 out_dir = sql_path + ".kg"
 with open(out_dir,'w') as wf:
     for d in sql_data_kg:
         wf.write(json.dumps(d) + "\n")
 
-print "done!!!"
+print("done!!!")
 
